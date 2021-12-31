@@ -1,6 +1,6 @@
 # rogerwilco
 
-[![Build Status](https://cloud.drone.io/api/badges/dotdc/rogerwilco/status.svg)](https://cloud.drone.io/dotdc/rogerwilco)
+[![Go](https://github.com/dotdc/rogerwilco/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/dotdc/rogerwilco/actions/workflows/go.yml)
 
 ## Description
 
