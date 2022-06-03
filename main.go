@@ -6,27 +6,30 @@ package main
 */
 
 import (
-
+	"html/template"
 	"log"
 	"net/http"
-	"html/template"
 )
 
 type Page struct {
-    Title string
-    Version string
+	Title   string
+	Version string
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	values := Page{
-        Title: "Roger Wilco App",
-        Version: "0.1.0",
+		Title:   "Roger Wilco App",
+		Version: "0.1.0",
 	}
-	
-	template, _ := template.ParseFiles("templates/index.html")
-	err := template.Execute(w, values)
+
+	template, err := template.ParseFiles("./templates/index.html")
 	if err != nil {
-		log.Println("Error executing template :", err)
+		log.Println("Error parsing files :", err)
+	}
+
+	terr := template.Execute(w, values)
+	if terr != nil {
+		log.Println("Error executing template :", terr)
 		return
 	}
 }
@@ -35,6 +38,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	router := http.NewServeMux()
 	router.HandleFunc("/", indexHandler)
-	router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
