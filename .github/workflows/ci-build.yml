@@ -1,5 +1,7 @@
 name: ci-build
 
+# Doc: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
 on:
   push:
     tags:
@@ -43,5 +45,9 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          build-args:
+            APP_VERSION=${{ github.ref }}
           push: true
-          tags: ${{ github.repository }}:latest
+          tags:
+            ${{ github.repository }}:latest
+            ${{ github.repository }}:${{ github.ref }}

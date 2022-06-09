@@ -11,6 +11,8 @@ import (
 	"net/http"
 )
 
+var AppVersion = "unset"
+
 type Page struct {
 	Title   string
 	Version string
@@ -19,7 +21,7 @@ type Page struct {
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	values := Page{
 		Title:   "Roger Wilco App",
-		Version: "0.1.0",
+		Version: AppVersion,
 	}
 
 	template, err := template.ParseFiles("./templates/index.html")
