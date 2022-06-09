@@ -49,5 +49,5 @@ jobs:
             APP_VERSION=${{ github.ref }}
           push: true
           tags:
-            ${{ github.repository }}:latest
-            ${{ github.repository }}:${{ github.ref }}
+            - "${{ github.repository }}:latest"
+            - "${{ github.repository }}:${{ github.sha }}"
