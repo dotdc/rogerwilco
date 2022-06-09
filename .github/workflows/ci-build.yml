@@ -48,6 +48,4 @@ jobs:
           build-args:
             APP_VERSION=${{ github.ref }}
           push: true
-          tags:
-            - "${{ github.repository }}:latest"
-            - "${{ github.repository }}:${{ github.sha }}"
+          tags: ${{ github.repository }}:latest,${{ github.repository }}:${{ github.sha }}
