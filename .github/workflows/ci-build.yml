@@ -54,6 +54,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Doc: https://github.com/marketplace/actions/checkout
+    - uses: actions/checkout@v3
+
     # Doc: https://github.com/aquasecurity/trivy-action
     - uses: aquasecurity/trivy-action@master
       with:
