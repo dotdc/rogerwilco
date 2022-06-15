@@ -46,6 +46,26 @@ jobs:
           context: .
           file: ./Dockerfile
           build-args:
-            APP_VERSION=${{ github.ref }}
+            APP_VERSION=${{ github.sha }}
           push: true
           tags: ${{ github.repository }}:latest,${{ github.repository }}:${{ github.sha }}
+
+  ci-trivy-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Doc: https://github.com/aquasecurity/trivy-action
+    - uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: '${{ github.repository }}:latest'
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
+        security-checks: 'vuln,secret,config'
+
+    # Upload Trivy scan results to GitHub Security tab
+    - uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
